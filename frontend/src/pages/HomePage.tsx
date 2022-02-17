@@ -1,21 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router";
-import { useLogoutMutation } from "../features/auth";
+import { useGetTodosQuery } from "../features/todos/todoApi";
+import { Header } from "../utils";
+import { TodoList } from "../features/todos";
 
 export default function HomePage() {
-  const [logout] = useLogoutMutation();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout()
-      .then(() => navigate("/login"))
-      .catch((error: any) => alert(`Something went wrong ${error}`));
-  };
-
+  const { data } = useGetTodosQuery();
   return (
-    <div className='text-white'>
-      HomePage
-      <button onClick={() => handleLogout()}>Logout</button>
+    <div className='w-full h-full text-white'>
+      <Header />
+      <main className='w-full h-full flex flex-col justify-start items-center pt-10'>
+        <h1 className='font-bold text-3xl p-4 '>Todos</h1>
+        <TodoList todos={data!} />
+      </main>
     </div>
   );
 }
