@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { useDispatch } from "react-redux";
 import { useLoginMutation } from "./authApi";
 import { setCredentials } from "./authSlice";
 import { useNavigate } from "react-router";
@@ -20,8 +19,8 @@ const style = {
 
 export default function LoginForm() {
   const [login] = useLoginMutation();
-  const [username, setUsername] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
