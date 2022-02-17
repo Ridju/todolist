@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { useLoginMutation } from "./authApi";
 import { setCredentials } from "./authSlice";
+import { useNavigate } from "react-router";
 
 const style = {
   container:
@@ -21,6 +22,7 @@ export default function LoginForm() {
   const [login] = useLoginMutation();
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -29,9 +31,10 @@ export default function LoginForm() {
     if (username && password) {
       login({ username, password })
         .unwrap()
-        .then((credentials: any) =>
-          dispatch(setCredentials(credentials.access))
-        )
+        .then((credentials: any) => {
+          dispatch(setCredentials(credentials.access));
+          navigate("/");
+        })
         .catch((error: any) => alert("something went wrong "));
     }
   };
