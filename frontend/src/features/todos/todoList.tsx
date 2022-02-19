@@ -18,7 +18,7 @@ export default function TodoList(props: TodoListProps) {
       </li>
       {props.todos &&
         props.todos.map((todo: Todo) => {
-          return <TodoItem todo={todo!} />;
+          return <TodoItem key={todo.id} todo={todo!} />;
         })}
     </ul>
   );
@@ -57,11 +57,10 @@ function TodoItem(props: TodoItemProps) {
   );
 }
 
-interface AddTotoItems {}
-
 function AddTodoItems() {
   const [newTodo, setNewTodo] = useState("");
   const [addTodo] = useAddTodoMutation();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addTodo(newTodo);

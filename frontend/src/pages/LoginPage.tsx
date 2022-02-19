@@ -15,7 +15,6 @@ export default function LoginPage() {
       .unwrap()
       .then((credentials: any) => {
         dispatch(setCredentials(credentials.access));
-        console.log(credentials.access);
         setTimeout(() => {
           refreshToken();
         }, 1000 * 60 * 4); //4 min intervall
