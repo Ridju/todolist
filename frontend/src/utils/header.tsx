@@ -12,7 +12,7 @@ export default function Header() {
       .catch((error: any) => alert(`Something went wrong ${error}`));
   };
   return (
-    <nav className='flex w-full bg-gray-800 text-white'>
+    <nav className='sticky top-0 z-50 flex w-full bg-gray-800 text-white'>
       <ul className='flex items-center justify-between w-full px-3 py-1'>
         <li className=''>
           <Link
