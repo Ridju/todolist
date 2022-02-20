@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useLoginMutation } from "./authApi";
-import { setCredentials } from "./authSlice";
+import { useRegisterMutation } from "./authApi";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
@@ -19,29 +17,23 @@ const style = {
 };
 
 export default function LoginForm() {
-  const [login] = useLoginMutation();
+  const [register] = useRegisterMutation();
   const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-
-  const handleLoginForm = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleRegisterForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (username && password) {
-      login({ username, password })
-        .unwrap()
-        .then((credentials: any) => {
-          dispatch(setCredentials(credentials.access));
-          navigate("/");
-        })
-        .catch((error: any) => alert("something went wrong "));
+    if (username && email && password) {
+      register({ username, email, password });
+      navigate("/login");
     }
   };
 
   return (
     <div className={style.container}>
-      <form onSubmit={handleLoginForm}>
+      <form onSubmit={handleRegisterForm}>
         <div className='mb-4'>
           <label htmlFor='Username' className={style.label}>
             Username
@@ -53,6 +45,19 @@ export default function LoginForm() {
             placeholder='Username'
             onChange={(e) => setUsername(e.target.value)}
             value={username}
+          />
+        </div>
+        <div className='form-group mb-4'>
+          <label htmlFor='password' className={style.label}>
+            Email
+          </label>
+          <input
+            name='Email'
+            type='Email'
+            className={style.input}
+            placeholder='username@example.com'
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
         </div>
         <div className='form-group mb-6'>
@@ -70,14 +75,14 @@ export default function LoginForm() {
         </div>
 
         <button type='submit' className={style.button}>
-          Login
+          Register
         </button>
       </form>
       <div className='flex justify-center items-center mt-4 text-slate-300'>
         <p>
-          Have no account? Register{" "}
+          Already have an account? Login{" "}
           <Link
-            to='/register'
+            to='/login'
             className='font-bold text-teal-700 hover:text-teal-800'>
             here
           </Link>

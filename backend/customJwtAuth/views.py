@@ -2,7 +2,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.exceptions import InvalidToken
-from .serializers import MyTokenObteinPairSerializer
+from .serializers import MyTokenObteinPairSerializer, CreateUserSerializer
+from rest_framework import generics, permissions
+from django.contrib.auth import get_user_model
 
 from backend import settings
 
@@ -50,3 +52,10 @@ def logoutView(request):
     response = HttpResponse('')
     response.delete_cookie(settings.SIMPLE_JWT['AUTH_COOKIE'])
     return response
+
+class CreateUserView(generics.CreateAPIView):
+    model = get_user_model()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = CreateUserSerializer

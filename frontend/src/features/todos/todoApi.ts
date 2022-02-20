@@ -10,6 +10,7 @@ export interface Todo {
 
 export const todoApi = createApi({
   reducerPath: "todoApi",
+  refetchOnMountOrArgChange: true,
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8000",
     prepareHeaders: (headers, { getState }) => {
