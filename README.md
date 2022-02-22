@@ -1,6 +1,6 @@
 # todolist
 
-todolist is a full-stack todolist app written with React, ReduxToolKit and Django.
+todolist is a full-stack todolist app written with [React](https://reactjs.org/), [ReduxToolKit](https://redux-toolkit.js.org/) and [Django](https://www.djangoproject.com/).
 
 ## Installation
 
